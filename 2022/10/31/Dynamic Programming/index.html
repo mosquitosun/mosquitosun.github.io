@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://mosquitosun.github.io/blog">
-  <title>Archives: 2022/10 | Blog</title>
+  <title>动态规划 | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Blog">
-<meta property="og:url" content="https://mosquitosun.github.io/blog/archives/2022/10/index.html">
+  <meta name="description" content="在做到今天的Leet Code每日一题（22.10.28）的时候，一看到题目就直接想着暴力法解决然后跳过，结果提交后直接显示&#x3D;&#x3D;&#x3D;超出时间限制&#x3D;&#x3D;&#x3D; 先来看看题目的描述： 12345678910111213给定一个整数数组 arr，找到 min(b) 的总和，其中 b 的范围为 arr 的每个（连续）子数组。由于答案可能很大，因此 返回答">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划">
+<meta property="og:url" content="https://mosquitosun.github.io/blog/2022/10/31/Dynamic%20Programming/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="在做到今天的Leet Code每日一题（22.10.28）的时候，一看到题目就直接想着暴力法解决然后跳过，结果提交后直接显示&#x3D;&#x3D;&#x3D;超出时间限制&#x3D;&#x3D;&#x3D; 先来看看题目的描述： 12345678910111213给定一个整数数组 arr，找到 min(b) 的总和，其中 b 的范围为 arr 的每个（连续）子数组。由于答案可能很大，因此 返回答">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-31T03:57:14.019Z">
+<meta property="article:modified_time" content="2022-10-31T09:07:11.128Z">
 <meta property="article:author" content="Mosquito Sun">
 <meta name="twitter:card" content="summary">
   
@@ -150,76 +154,224 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Dynamic Programming" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      动态规划
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/10/31/Dynamic%20Programming/" class="archive-article-date">
+
+        
+        <a href="/2022/10/31/Dynamic%20Programming/" class="archive-article-date">
   	<time datetime="2022-10-31T03:57:14.019Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-31</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/31/Dynamic%20Programming/">动态规划</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在做到今天的Leet Code每日一题（22.10.28）的时候，一看到题目就直接想着暴力法解决然后跳过，结果提交后直接显示&#x3D;&#x3D;&#x3D;超出时间限制&#x3D;&#x3D;&#x3D;</p>
+<p>先来看看题目的描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">给定一个整数数组 arr，找到 min(b) 的总和，其中 b 的范围为 arr 的每个（连续）子数组。</span><br><span class="line"></span><br><span class="line">由于答案可能很大，因此 返回答案模 10^9 + 7 。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line">输入：arr = [3,1,2,4]</span><br><span class="line">输出：17</span><br><span class="line">解释：</span><br><span class="line">子数组为 [3]，[1]，[2]，[4]，[3,1]，[1,2]，[2,4]，[3,1,2]，[1,2,4]，[3,1,2,4]。 </span><br><span class="line">最小值为 3，1，2，4，1，1，2，1，1，1，和为 17。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https://leetcode.cn/problems/sum-of-subarray-minimums</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>这里我给出我的题解。。。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 返回当前节点开始的子数组的sub_min(b)</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">subSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; sub_arr)</span></span>&#123;</span><br><span class="line">       <span class="type">int</span> result = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> it = sub_arr.<span class="built_in">begin</span>(); it != sub_arr.<span class="built_in">end</span>(); it++) &#123;</span><br><span class="line">            <span class="type">int</span> min = *it;</span><br><span class="line">            <span class="comment">// 获取到每一次的最小值</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> sub_it = sub_result.<span class="built_in">begin</span>(); sub_it != sub_result.<span class="built_in">end</span>(); sub_it ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(min &gt; *sub_it) &#123;</span><br><span class="line">                    min = *sub_it;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            result = (result + min) % <span class="number">1000000007</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">sumSubarrayMins</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> result = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (arr.<span class="built_in">begin</span>() != arr.<span class="built_in">end</span>())&#123;</span><br><span class="line">            <span class="type">int</span> sub_result = <span class="built_in">subSum</span>(arr);</span><br><span class="line">            result += sub_result;</span><br><span class="line">            <span class="keyword">auto</span> it = arr.<span class="built_in">begin</span>();</span><br><span class="line">            arr.<span class="built_in">erase</span>(it);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result % <span class="number">1000000007</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+<p>可以看到，题解的时间复杂度达到了o(n^3)。然而不难发现，在计算子数组时，每一次并不需要重复计算该数组中的最小值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = sub_arr.<span class="built_in">begin</span>(); it != sub_arr.<span class="built_in">end</span>(); it++) &#123;</span><br><span class="line">            sub_result.<span class="built_in">push_back</span>(*it);</span><br><span class="line">            <span class="type">int</span> min = *it;</span><br><span class="line">            <span class="comment">// 这里其实没有必要每次都进行遍历获取最小值，只需要将新添加的值与原数组的最小值进行比较就可以得到当前数组的最小值</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> sub_it = sub_result.<span class="built_in">begin</span>(); sub_it != sub_result.<span class="built_in">end</span>(); sub_it ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(min &gt; *sub_it) &#123;</span><br><span class="line">                    min = *sub_it;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"> <span class="comment">// 代码可以修改为：</span></span><br><span class="line"><span class="type">int</span> min = sub_arr.<span class="built_in">front</span>();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = sub_arr.<span class="built_in">begin</span>(); it != sub_arr.<span class="built_in">end</span>(); it++) &#123;</span><br><span class="line">     sub_result.<span class="built_in">push_back</span>(*it);</span><br><span class="line">     <span class="keyword">if</span>(min &gt; *it)&#123;</span><br><span class="line">        min = *it;</span><br><span class="line">     &#125;</span><br><span class="line">     result = (result + min) % <span class="number">1000000007</span>;</span><br><span class="line"> &#125;    </span><br></pre></td></tr></table></figure>
+
+<p>现在时间复杂度来到了o(n^2)，空间复杂度为O(1)</p>
+<p>这下不出意外的话，还是出了意外、依然超时了。</p>
+<p>接着来看看时间上哪里还有需要优化的部分。</p>
+<p>能不能在遍历到 <strong>arr[i]</strong> 时一次找到以 <strong>arr[i]</strong> 为起点的子数组所有的最小值呢？</p>
+<p>考虑题目给出的数组[3, 1, 2, 4]</p>
+<table>
+<thead>
+<tr>
+<th>arr[0]:[3],[3, 1],[3, 1, 2],[3, 1,  2,  4]</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>arr[1]:[1],[1, 2], [1, 2, 4]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>arr[2]:[ 2], [2, 4]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>arr[3]:[4]</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>引入辐射范围这样一个概念：每个元素E&#x3D;A[i]的辐射范围都是一个连续数组，这个辐射范围内产生的所有子数组最小值都为E，因此E在每个子数组中对答案的贡献值都为E。如果这个辐射范围内的子数组有n个，那么总贡献值为n*E。</p>
+<p>上面的数组中，arr[0]的辐射范围：[3] &#x3D;&gt; 贡献值:3*1 &#x3D; 3</p>
+<p>arr[1]辐射范围：[3, 1],[3, 1, 2],[3, 1,  2,  4]，[1],[1, 2], [1, 2, 4] &#x3D;&gt; 贡献值 6*1 &#x3D; 6</p>
+<p>arr[2]:[ 2], [2, 4] &#x3D;&gt; 2 * 2 &#x3D; 4</p>
+<p>arr[3]:[4] &#x3D;&gt; 4 * 1 &#x3D; 4</p>
+<p>result &#x3D; sum(6, 4, 4 ,3) &#x3D; 17</p>
+<p>如何确定每个元素的辐射范围？</p>
+<p><strong>找出E&#x3D;arr[i]所在的子数组左边界和右边界</strong>（在这个范围内E为最小）,此时对应的子数组个数为：(i-left+1)*(right-i+1)</p>
+<p>对应的贡献值：arr[i] * (i-left)*(right-i).</p>
+<p>如何找到两个边界呢？</p>
+<p>下面我们具体整理一下求解思路，分为三步：</p>
+<p>利用单调栈向左找到第一个比A[i]小的数A[left]（遍历顺序为0-&gt;n-1)，也就是E辐射范围的左边界；<br>利用单调栈向右找到第一个比A[i]小的数A[right]（遍历顺序为n-1-&gt;0)，也就是E辐射范围的右边界；<br>将每个元素的贡献值求和得到最终答案</p>
+<p>即可以得出代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://mosquitosun.github.io/blog/2022/10/31/Dynamic%20Programming/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/10/31/Latex%20In%20Visual%20Studio%20Code/" class="archive-article-date">
-  	<time datetime="2022-10-31T02:24:25.479Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-31</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/10/31/Latex%20In%20Visual%20Studio%20Code/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Visual Studio Code 配置 LaTex</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/31/Latex%20In%20Visual%20Studio%20Code/">Visual Studio Code 配置 LaTex</a>
-    </h1>
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Dynamic Programming" data-title="动态规划" data-url="https://mosquitosun.github.io/blog/2022/10/31/Dynamic%20Programming/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -242,8 +394,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
